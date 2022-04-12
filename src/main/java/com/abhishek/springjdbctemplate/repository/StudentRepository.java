@@ -42,12 +42,21 @@ public class StudentRepository {
     private String getQuery(String queryName) {
         String query = null;
 
-        if ("getAllStudent".equals(queryName)) {
-            query = queries.getFindAll();
-        } else if ("getById".equals(queryName)) {
-            query = queries.getGetById();
-        } else if ("insert".equals(queryName)) {
-            query = queries.getInsert();
+        switch (queryName) {
+            case "getAllStudent":
+                query = queries.getFindAll();
+                break;
+            case "getById":
+                query = queries.getGetById();
+                break;
+            case "insert":
+                query = queries.getInsert();
+                break;
+            case "findStudentNameById":
+                query = queries.getFindStudentNameById();
+                break;
+            default:
+                break;
         }
         Assert.isTrue(query != null, "no sql query mapped for queryName " + queryName);
 
@@ -80,5 +89,10 @@ public class StudentRepository {
         mapSqlParameterSource.addValue("id", id, Types.INTEGER);
 
         return namedParameterJdbcTemplate.query(sqlQuery, mapSqlParameterSource, new StudentResultSetExtractor());
+    }
+
+    public String getStudentNameById(String id) {
+        String sqlQuery = getQuery("findStudentNameById");
+        return jdbcTemplate.queryForObject(sqlQuery, String.class, Long.valueOf(id));
     }
 }
