@@ -25,7 +25,7 @@ public class StudentController {
 
         List<Student> students = service.getAllStudent();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(students);
+        return ResponseEntity.status(HttpStatus.OK).body(students);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +33,15 @@ public class StudentController {
 
         Student student = service.getStudentById(id);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(student);
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @GetMapping(value = "/name/{id}")
+    public ResponseEntity<String> getStudentNameById(@PathVariable("id") String id) {
+
+        String studentName = service.getStudentNameById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(studentName);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

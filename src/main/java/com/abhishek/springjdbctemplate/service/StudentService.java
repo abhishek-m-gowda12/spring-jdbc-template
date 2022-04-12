@@ -31,4 +31,8 @@ public class StudentService {
     public Student getStudentById(String id) {
         return studentRepository.getStudentById(id);
     }
+
+    public String getStudentNameById(String id) {
+        return studentRepository.getStudentNameById(id);
+    }
 }
